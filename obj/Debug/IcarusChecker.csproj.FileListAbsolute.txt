@@ -1,0 +1,7 @@
+C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\bin\Debug\IcarusChecker.exe.config
+C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\bin\Debug\IcarusChecker.exe
+C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\bin\Debug\IcarusChecker.pdb
+C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\bin\Debug\System.Net.Http.dll
+C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\obj\Debug\IcarusChecker.csprojResolveAssemblyReference.cache
+C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\obj\Debug\IcarusChecker.exe
+C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\obj\Debug\IcarusChecker.pdb

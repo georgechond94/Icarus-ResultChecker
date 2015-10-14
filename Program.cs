@@ -4,6 +4,8 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace IcarusChecker
@@ -11,6 +13,12 @@ namespace IcarusChecker
     internal class Program
     {
         private static string fileName = "./icarus.dat";
+        [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
+        static extern IntPtr FindWindowByCaption(IntPtr zeroOnly, string lpWindowName);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
 
         private static void Main(string[] args)
         {
@@ -19,32 +27,38 @@ namespace IcarusChecker
             {
                 var username = args[0];
                 var pwd = args[1];
+                Console.WriteLine("\nStarting.. Press Ctrl+C to exit.");
 
-                string str = LoginAndDownloadData(username, pwd);
-                var idxS = str.IndexOf("<div id=\"tabs-4\">");
-                var len = str.Substring(idxS).IndexOf("</div>");
-
-                str = str.Substring(idxS, len);
-
-                if (IsSameToFile(str))
+                while (true)
                 {
-                    if (!File.Exists(fileName))
+                    string str = LoginAndDownloadData(username, pwd);
+                    var idxS = str.IndexOf("<div id=\"tabs-4\">");
+                    var len = str.Substring(idxS).IndexOf("</div>");
+
+                    str = str.Substring(idxS, len);
+
+                    if (IsSameToFile(str))
                     {
-                        WriteToFile(str);
-                        Console.WriteLine("File created!");
+                        if (!File.Exists(fileName))
+                        {
+                            WriteToFile(str);
+                            Console.WriteLine("File created!");
+
+                        }
+                        else
+                            Console.WriteLine("Nothing important.");
 
                     }
                     else
-                        Console.WriteLine("Nothing important.");
+                    {
+                        Console.WriteLine("New data!");
+                        WriteToFile(str);
+                        NotifyUser();
+
+
+                    }
 
                 }
-                else
-                {
-                    Console.WriteLine("New data!");
-                    WriteToFile(str);
-
-                }
-
 
 
             }
@@ -53,12 +67,12 @@ namespace IcarusChecker
 
                 Console.WriteLine("usage: IcarusChecker.exe <username> <password>");
             }
-            catch (InvalidOperationException e)
+            catch (ArgumentException e)
             {
                 Console.WriteLine("-----------------------------------------------------");
                 Console.WriteLine("Possibly wrong password entered.");
                 Console.WriteLine("-----------------------------------------------------");
-                Console.WriteLine(e.StackTrace);
+                Console.WriteLine(e.Message);
 
             }
             catch (Exception e)
@@ -66,7 +80,7 @@ namespace IcarusChecker
                 Console.WriteLine("-----------------------------------------------------");
                 Console.WriteLine("Error getting data.");
                 Console.WriteLine("-----------------------------------------------------");
-                Console.WriteLine(e.StackTrace);
+                Console.WriteLine(e.Message);
             }
 
 
@@ -79,7 +93,7 @@ namespace IcarusChecker
             var cookies = new CookieContainer();
             HttpWebRequest req = (HttpWebRequest) WebRequest.Create(loginAddress);
             req.CookieContainer = cookies;
-            req.ContentLength = 33;
+            req.ContentLength = pBody.Length;
             req.ContentType = "application/x-www-form-urlencoded";
             req.Method = "POST";
             var stream = req.GetRequestStream();
@@ -110,6 +124,12 @@ namespace IcarusChecker
         {
 
             File.AppendAllText(fileName, content);
+        }
+
+        private static void NotifyUser()
+        {
+            SetForegroundWindow(FindWindowByCaption(IntPtr.Zero, Console.Title));
+            Console.Beep(10000,1);
         }
     }
 
