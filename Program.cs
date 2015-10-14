@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -90,16 +91,14 @@ namespace IcarusChecker
         {
             string pBody = $"username={username}&pwd={pwd}";
             var loginAddress = "https://icarus-icsd.aegean.gr/authentication.php";
-            var cookies = new CookieContainer();
             HttpWebRequest req = (HttpWebRequest) WebRequest.Create(loginAddress);
-            req.CookieContainer = cookies;
             req.ContentLength = pBody.Length;
             req.ContentType = "application/x-www-form-urlencoded";
             req.Method = "POST";
             var stream = req.GetRequestStream();
             stream.Write(Encoding.UTF8.GetBytes(pBody), 0,
                 pBody.Length);
-
+            
             var resp = (HttpWebResponse) req.GetResponse();
 
             using (StreamReader sr = new StreamReader(resp.GetResponseStream(), Encoding.Default))
