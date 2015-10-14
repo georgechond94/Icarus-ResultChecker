@@ -14,7 +14,12 @@ namespace IcarusChecker
 {
     internal class Program
     {
-        private static string fileName = "./icarus.dat";
+        private readonly static string fileName = "./icarus.dat";
+        private readonly static string emailUsername = "icaruschecker@zoho.com";
+        private readonly static string emailPwd = "icarus@icsd";
+        private readonly static string outEmailServer = "smtp.zoho.com";
+        private readonly static int outEmailPort = 465;
+
         [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
         static extern IntPtr FindWindowByCaption(IntPtr zeroOnly, string lpWindowName);
 
@@ -50,13 +55,13 @@ namespace IcarusChecker
                         }
                         else
                             Console.WriteLine("Nothing important.");
-
                     }
                     else
                     {
                         Console.WriteLine("New data! Check your Icarus result table!");
                         WriteToFile(str);
                         NotifyUser();
+                        SendEmail(username);
 
 
                     }
@@ -133,6 +138,23 @@ namespace IcarusChecker
         {
             SetForegroundWindow(FindWindowByCaption(IntPtr.Zero, Console.Title));
             Console.Beep(10000,1);
+        }
+
+        private static object tok = new object();
+
+        private static void SendEmail(string username)
+        {
+            SmtpClient client = new SmtpClient(outEmailServer, outEmailPort);
+            client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential(emailUsername, emailPwd);
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.Timeout = 60 * 1000 * 5;
+            client.SendAsyncCancel();
+            client.SendAsync(emailUsername, username + "@icsd.aegean.gr", "Result announced - Icarus Result Checker", "Hello " + username + ",\nGood/Bad news! I just wanted you to know that an exam result is announced just now! Good luck!\n\nThis is an automated email. Do not reply.\nIcarus Result Checker.",tok);
+            client.SendCompleted += (sender, args) => {
+                Console.WriteLine("Email sent to " + username + "@icsd.aegean.gr");
+            };
         }
     }
 
