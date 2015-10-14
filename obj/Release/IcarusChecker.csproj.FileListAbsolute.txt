@@ -1,6 +1,0 @@
-C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\bin\Release\IcarusChecker.exe.config
-C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\bin\Release\IcarusChecker.exe
-C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\bin\Release\IcarusChecker.pdb
-C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\bin\Release\System.Net.Http.dll
-C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\obj\Release\IcarusChecker.exe
-C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\obj\Release\IcarusChecker.pdb
