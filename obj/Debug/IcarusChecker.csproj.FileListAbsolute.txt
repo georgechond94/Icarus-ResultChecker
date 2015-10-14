@@ -1,0 +1,16 @@
+c:\users\xrist\documents\visual studio 2015\Projects\IcarusChecker\IcarusChecker\bin\Debug\IcarusChecker.exe.config
+c:\users\xrist\documents\visual studio 2015\Projects\IcarusChecker\IcarusChecker\bin\Debug\IcarusChecker.exe
+c:\users\xrist\documents\visual studio 2015\Projects\IcarusChecker\IcarusChecker\bin\Debug\IcarusChecker.pdb
+c:\users\xrist\documents\visual studio 2015\Projects\IcarusChecker\IcarusChecker\obj\Debug\IcarusChecker.csprojResolveAssemblyReference.cache
+c:\users\xrist\documents\visual studio 2015\Projects\IcarusChecker\IcarusChecker\obj\Debug\IcarusChecker.exe
+c:\users\xrist\documents\visual studio 2015\Projects\IcarusChecker\IcarusChecker\obj\Debug\IcarusChecker.pdb
+C:\Users\George\Desktop\IcarusChecker\IcarusChecker\bin\Debug\IcarusChecker.exe.config
+C:\Users\George\Desktop\IcarusChecker\IcarusChecker\obj\Debug\IcarusChecker.exe
+C:\Users\George\Desktop\IcarusChecker\IcarusChecker\obj\Debug\IcarusChecker.pdb
+C:\Users\George\Desktop\IcarusChecker\IcarusChecker\bin\Debug\IcarusChecker.exe
+C:\Users\George\Desktop\IcarusChecker\IcarusChecker\bin\Debug\IcarusChecker.pdb
+C:\Users\George\Desktop\IcarusChecker\IcarusChecker\obj\Debug\IcarusChecker.csprojResolveAssemblyReference.cache
+C:\Users\George\Desktop\IcarusChecker\IcarusChecker\bin\Debug\System.Net.Http.dll
+C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\bin\Debug\IcarusChecker.exe.config
+C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\obj\Debug\IcarusChecker.exe
+C:\Users\George\Documents\GitHub\IcarusChecker\IcarusChecker\obj\Debug\IcarusChecker.pdb
