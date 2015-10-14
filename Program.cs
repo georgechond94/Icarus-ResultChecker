@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 
 namespace IcarusChecker
 {
@@ -32,6 +33,7 @@ namespace IcarusChecker
 
                 while (true)
                 {
+                    
                     string str = LoginAndDownloadData(username, pwd);
                     var idxS = str.IndexOf("<div id=\"tabs-4\">");
                     var len = str.Substring(idxS).IndexOf("</div>");
@@ -52,13 +54,13 @@ namespace IcarusChecker
                     }
                     else
                     {
-                        Console.WriteLine("New data!");
+                        Console.WriteLine("New data! Check your Icarus result table!");
                         WriteToFile(str);
                         NotifyUser();
 
 
                     }
-
+                    Thread.Sleep(60000);
                 }
 
 
@@ -91,7 +93,9 @@ namespace IcarusChecker
         {
             string pBody = $"username={username}&pwd={pwd}";
             var loginAddress = "https://icarus-icsd.aegean.gr/authentication.php";
+            var cookies = new CookieContainer();
             HttpWebRequest req = (HttpWebRequest) WebRequest.Create(loginAddress);
+            req.CookieContainer = cookies;
             req.ContentLength = pBody.Length;
             req.ContentType = "application/x-www-form-urlencoded";
             req.Method = "POST";
