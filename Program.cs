@@ -18,7 +18,7 @@ namespace IcarusChecker
         private readonly static string emailUsername = "icaruschecker@zoho.com";
         private readonly static string emailPwd = "icarus@icsd";
         private readonly static string outEmailServer = "smtp.zoho.com";
-        private readonly static int outEmailPort = 465;
+        private readonly static int outEmailPort = 587;
 
         [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
         static extern IntPtr FindWindowByCaption(IntPtr zeroOnly, string lpWindowName);
@@ -55,6 +55,7 @@ namespace IcarusChecker
                         }
                         else
                             Console.WriteLine("Nothing important.");
+
                     }
                     else
                     {
@@ -151,7 +152,7 @@ namespace IcarusChecker
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.Timeout = 60 * 1000 * 5;
             client.SendAsyncCancel();
-            client.SendAsync(emailUsername, username + "@icsd.aegean.gr", "Result announced - Icarus Result Checker", "Hello " + username + ",\nGood/Bad news! I just wanted you to know that an exam result is announced just now! Good luck!\n\nThis is an automated email. Do not reply.\nIcarus Result Checker.",tok);
+            client.SendAsync(emailUsername, username + "@icsd.aegean.gr", "Result announced - Icarus Result Checker", "Hello " + username + ",\nGood/Bad news! I just wanted you to know that an exam result was announced just moments ago! Good luck!\n\nThis is an automated email. Do not reply.\nIcarus Result Checker",tok);
             client.SendCompleted += (sender, args) => {
                 Console.WriteLine("Email sent to " + username + "@icsd.aegean.gr");
             };
