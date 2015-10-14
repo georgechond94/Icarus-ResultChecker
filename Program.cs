@@ -121,7 +121,7 @@ namespace IcarusChecker
         {
             if (File.Exists(fileName))
             {
-                if (newContent == File.ReadAllText(fileName))
+                if (String.CompareOrdinal(newContent,File.ReadAllText(fileName))==0)
                     return true;
                 return false;
             }
