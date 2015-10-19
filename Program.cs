@@ -1,4 +1,26 @@
-﻿using System;
+﻿/*
+    Icarus Result Checker 
+    Copyright (C) 2015  Icarus Checker
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+    Author: Chondrompilas Georgios
+
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
@@ -40,22 +62,21 @@ namespace IcarusChecker
                 {
                     
                     string str = LoginAndDownloadData(username, pwd);
-                    var idxS = str.IndexOf("<div id=\"tabs-4\">");
-                    var len = str.Substring(idxS).IndexOf("</div>");
+                    var idxS = str.IndexOf("<div id=\"tabs-4\">", StringComparison.Ordinal);
+                    var len = str.Substring(idxS).IndexOf("</div>", StringComparison.Ordinal);
 
                     str = str.Substring(idxS, len);
-
-                    if (IsSameToFile(str))
+                    var same = IsSameToFile(str);
+                    if (same==true)
                     {
-                        if (!File.Exists(fileName))
-                        {
-                            WriteToFile(str);
-                            Console.WriteLine("File created!");
-
-                        }
-                        else
+                       
                             Console.WriteLine("Nothing important.");
 
+                    }
+                    else if (same==null)
+                    {
+                        WriteToFile(str);
+                        Console.WriteLine("File created!");
                     }
                     else
                     {
@@ -117,7 +138,7 @@ namespace IcarusChecker
             }
         }
 
-        private static bool IsSameToFile(string newContent)
+        private static bool? IsSameToFile(string newContent)
         {
             if (File.Exists(fileName))
             {
@@ -125,14 +146,14 @@ namespace IcarusChecker
                     return true;
                 return false;
             }
-            return true;
+            return null;
 
         }
 
         private static void WriteToFile(string content)
         {
 
-            File.AppendAllText(fileName, content);
+            File.WriteAllText(fileName, content);
         }
 
         private static void NotifyUser()
